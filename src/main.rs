@@ -1,5 +1,3 @@
-#![feature(splice)]
-
 #[macro_use]
 extern crate error_chain;
 #[macro_use]
@@ -62,10 +60,10 @@ impl Command {
     fn set_ext(&mut self, ext: &str) -> bool {
         let len = self.file.len();
         if self.file.ends_with(".c") {
-            self.file.splice(len - 1.., ext);
+            self.file.replace_range(len - 1.., ext);
             true
         } else if self.file.ends_with(".cpp") {
-            self.file.splice(len - 3.., ext);
+            self.file.replace_range(len - 3.., ext);
             true
         } else {
             false
